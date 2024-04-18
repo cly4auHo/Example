@@ -1,3 +1,4 @@
+using Leaderboard;
 using UnityEngine;
 using UnityEngine.UI;
 

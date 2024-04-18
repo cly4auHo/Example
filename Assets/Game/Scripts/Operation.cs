@@ -1,7 +1,10 @@
-public enum Operation
+namespace Generator
 {
-    Addition,
-    Subtraction,
-    Multiplication,
-    Division
+    public enum Operation
+    {
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division
+    }
 }

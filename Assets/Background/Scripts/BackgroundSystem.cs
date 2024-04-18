@@ -1,48 +1,52 @@
 using System.Threading.Tasks;
+using Content;
 using UnityEngine;
 using Zenject;
 
-public class BackgroundSystem : IBackgroundSystem
+namespace Background
 {
-    const string KEY = "background";
-    
-    [Inject] IContentManager _contentManager;
-
-    Sprite[] _all;
-    
-    public bool Initialized { get; private set; }
-    public Sprite CurrentBackground { get; private set; }
-    public int CurrentIndex { get; private set; } = -1;
-    
-    public async void Init()
+    public class BackgroundSystem : IBackgroundSystem
     {
-        CurrentIndex = PlayerPrefs.GetInt(KEY, 0);
-        
-        CurrentBackground = await _contentManager.GetSprite(CurrentIndex);
+        const string KEY = "background";
 
-        Initialized = true;
-    }
+        [Inject] IContentManager _contentManager;
 
-    public void SetNewBackground(int index)
-    {
-        PlayerPrefs.SetInt(KEY, index);
-        CurrentBackground = _all[index];
-        CurrentIndex = index;
+        Sprite[] _all;
+        int _currentIndex = -1;
         
-        for (int i = 0; i < _all.Length; i++)
+        public bool Initialized { get; private set; }
+        public Sprite CurrentBackground { get; private set; }
+        
+        public async void Init()
         {
-            if (i != index)
-                _contentManager.Release(i);   
+            _currentIndex = PlayerPrefs.GetInt(KEY, 0);
+
+            CurrentBackground = await _contentManager.GetSprite(_currentIndex);
+
+            Initialized = true;
         }
-    }
 
-    public async Task<Sprite[]> GetAll()
-    {
-        _all = await _contentManager.GetAllSprite(CurrentIndex);
+        public void SetNewBackground(int index)
+        {
+            PlayerPrefs.SetInt(KEY, index);
+            CurrentBackground = _all[index];
+            _currentIndex = index;
 
-        if (CurrentIndex != -1)
-            _all[CurrentIndex] = CurrentBackground;
-        
-        return _all;
+            for (int i = 0; i < _all.Length; i++)
+            {
+                if (i != index)
+                    _contentManager.Release(i);
+            }
+        }
+
+        public async Task<Sprite[]> GetAll()
+        {
+            _all = await _contentManager.GetAllSprite(_currentIndex);
+
+            if (_currentIndex != -1)
+                _all[_currentIndex] = CurrentBackground;
+
+            return _all;
+        }
     }
 }
