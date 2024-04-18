@@ -12,6 +12,7 @@ namespace Boot
         [Inject] IBackgroundSystem _backgroundSystem;
         [Inject] ILeaderboardSystem _leaderboardSystem;
         [Inject] IServerApi _serverApi;
+        [Inject] IExampleGenerator _exampleGenerator;
         [Inject] Widget _widget;
 
         async void Start()
@@ -23,7 +24,7 @@ namespace Boot
 
             _widget.Init(model);
 
-            ExampleGenerator.AmountOfAnswers = model.AmountOfAnswers;
+            _exampleGenerator.Init(model.AmountOfAnswers);
         }
     }
 }

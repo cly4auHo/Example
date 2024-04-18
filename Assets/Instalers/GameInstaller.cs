@@ -1,6 +1,7 @@
 using Background;
 using Boot;
 using Content;
+using Generator;
 using Leaderboard;
 using Network;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Injection
             Container.Bind<ILeaderboardSystem>().To<LeaderboardSystem>().AsSingle();
             Container.Bind<IBackgroundSystem>().To<BackgroundSystem>().AsSingle();
             Container.Bind<IServerApi>().To<ServerApiStub>().AsSingle();
+            Container.Bind<IExampleGenerator>().To<ExampleGenerator>().AsSingle();
         }
     }
 }

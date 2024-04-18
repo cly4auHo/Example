@@ -1,4 +1,5 @@
 using Background;
+using Generator;
 using Leaderboard;
 using Network;
 using UnityEngine;
@@ -22,7 +23,8 @@ public class Widget : MonoBehaviour
     
     [Inject] IBackgroundSystem _backgroundSystem;
     [Inject] ILeaderboardSystem _leaderboardSystem;
-
+    [Inject] IExampleGenerator _exampleGenerator;
+    
     GameModel _model;
     
     public void Init(GameModel model)
@@ -43,7 +45,7 @@ public class Widget : MonoBehaviour
         var gameField = Instantiate(_gameFieldWidget, _container);
 
         gameField.Closed += CloseGame;
-        gameField.Init(_leaderboardSystem, _model);
+        gameField.Init(_leaderboardSystem, _exampleGenerator, _model);
     }
 
     void LeaderboardClickHandler()

@@ -1,20 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Generator
 {
-    public static class ExampleGenerator
+    public class ExampleGenerator : IExampleGenerator
     {
+        const int MIN_ANSWERS_AMOUNT = 2;
+        const int MAX_ANSWERS_AMOUNT = 10;
+        
         static readonly Operation[] EASY = {Operation.Addition, Operation.Subtraction};
+        static readonly Operation[] HARD = {Operation.Addition, Operation.Subtraction, Operation.Multiplication, Operation.Division};
 
-        static readonly Operation[] HARD =
-            {Operation.Addition, Operation.Subtraction, Operation.Multiplication, Operation.Division};
+        int _amountOfAnswers;
 
-        public static int AmountOfAnswers { private get; set; }
-
-        public static Example Generate(in bool isEasy, in int minValue, in int maxValue)
+        public void Init(in int amountOfAnswers)
+        {
+            _amountOfAnswers = Mathf.Clamp(amountOfAnswers, MIN_ANSWERS_AMOUNT, MAX_ANSWERS_AMOUNT);
+        }
+        
+        public Example Generate(in bool isEasy, in int minValue, in int maxValue)
         {
             var operation = isEasy ? EASY[Random.Range(0, EASY.Length)] : HARD[Random.Range(0, HARD.Length)];
 
@@ -28,7 +35,7 @@ namespace Generator
             };
         }
 
-        static Example Addition(in int minValue, in int maxValue)
+        Example Addition(in int minValue, in int maxValue)
         {
             var answer = Random.Range(2 + minValue, maxValue + 1); //min 1 + 1, if minValue 0
             var first = Random.Range(1, answer);
@@ -44,7 +51,7 @@ namespace Generator
             };
         }
 
-        static Example Subtraction(in int minValue, in int maxValue)
+        Example Subtraction(in int minValue, in int maxValue)
         {
             var first = Random.Range(2 + minValue, maxValue + 1);
             var answer = Random.Range(1, first);
@@ -60,10 +67,10 @@ namespace Generator
             };
         }
 
-        static Example Multiplication(in int minValue, in int maxValue)
+        Example Multiplication(in int minValue, in int maxValue)
         {
             var answer = Random.Range(1 + minValue, maxValue + 1);
-            var divisors = GetDivisors(answer);
+            var divisors = MathUtil.GetDivisors(answer);
             var first = divisors[Random.Range(0, divisors.Count)];
             var second = answer / first;
 
@@ -77,10 +84,10 @@ namespace Generator
             };
         }
 
-        static Example Division(in int minValue, in int maxValue)
+        Example Division(in int minValue, in int maxValue)
         {
             var first = Random.Range(1 + minValue, maxValue + 1);
-            var divisors = GetDivisors(first);
+            var divisors = MathUtil.GetDivisors(first);
             var second = divisors[Random.Range(0, divisors.Count)];
             var answer = first / second;
 
@@ -94,9 +101,9 @@ namespace Generator
             };
         }
 
-        static int[] GetAnswers(in int answer)
+        int[] GetAnswers(in int answer)
         {
-            var answers = new int[AmountOfAnswers];
+            var answers = new int[_amountOfAnswers];
             var random = Random.Range(0, answers.Length);
             answers[random] = answer;
 
@@ -109,48 +116,10 @@ namespace Generator
             return answers;
         }
 
-        static int RandomNear(in int value, int[] values)
+        int RandomNear(in int value, int[] values)
         {
-            var random = Random.Range(value - AmountOfAnswers, value + AmountOfAnswers + 1);
+            var random = Random.Range(value - _amountOfAnswers, value + _amountOfAnswers + 1);
             return values.Contains(random) ? RandomNear(value, values) : random;
-        }
-
-        static List<int> GetDivisors(in int n)
-        {
-            var divisors = new List<int> {1};
-
-            if (n <= 1 || IsPrime(n))
-                return divisors;
-
-            for (int i = 2; i * i <= n; i++)
-            {
-                if (n % i == 0)
-                    divisors.Add(i);
-            }
-
-            divisors.Sort();
-
-            return divisors;
-        }
-
-        static bool IsPrime(in int number)
-        {
-            if (number <= 1)
-                return false;
-
-            if (number % 2 == 0)
-                return number == 2;
-
-            if (number % 3 == 0)
-                return number == 3;
-
-            for (int i = 5; i * i <= number; i += 6)
-            {
-                if (number % i == 0 || number % (i + 2) == 0)
-                    return false;
-            }
-
-            return true;
         }
     }
 }

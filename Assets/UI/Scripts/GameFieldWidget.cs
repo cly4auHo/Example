@@ -34,7 +34,8 @@ public class GameFieldWidget : BaseWidget
     [SerializeField] int _amountAnswersForScrolling;
     [SerializeField] float _timeToHighlight;
     
-    ILeaderboardSystem _leaderboardSystem; 
+    ILeaderboardSystem _leaderboardSystem;
+    IExampleGenerator _exampleGenerator;
     GameModel _model;
 
     GameOver _gameOverInstance;
@@ -53,9 +54,10 @@ public class GameFieldWidget : BaseWidget
     float _time;
     float _additionalTime;
     
-    public void Init(ILeaderboardSystem leaderboardSystem, GameModel model)
+    public void Init(ILeaderboardSystem leaderboardSystem, IExampleGenerator exampleGenerator, GameModel model)
     {
         _leaderboardSystem = leaderboardSystem;
+        _exampleGenerator = exampleGenerator;
         _model = model;
         _isEasy = true;
         _step = 0;
@@ -84,7 +86,7 @@ public class GameFieldWidget : BaseWidget
 
     void NextExample()
     {
-        _currentExample = ExampleGenerator.Generate(_isEasy, _min, _max);
+        _currentExample = _exampleGenerator.Generate(_isEasy, _min, _max);
         _example.text = $"{_currentExample.First} {SIGNS[_currentExample.Operation]} {_currentExample.Second} = ?";
         
         for (int i = 0; i < _answers.Length; i++)
