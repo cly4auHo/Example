@@ -1,3 +1,4 @@
+using Network;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -16,5 +17,6 @@ public class GameInstaller : MonoInstaller
         
         Container.Bind<ILeaderboardSystem>().To<LeaderboardSystem>().AsSingle();
         Container.Bind<IBackgroundSystem>().To<BackgroundSystem>().AsSingle();
+        Container.Bind<IServerApi>().To<ServerApiStub>().AsSingle();
     }
 }

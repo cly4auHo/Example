@@ -1,41 +1,30 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Network;
 using UnityEngine;
+using Zenject;
 
 public class LeaderboardSystem : ILeaderboardSystem
 {
-    const int DEFAULT_MAX_AMOUNT_LEADERBOARD = 10;
-    
     int _maxAmount;
-    string _saveFilePath;
 
+    [Inject] IServerApi _serverApi;
+    
     public bool Initialized { get; private set; }
     public List<LeaderboardUserModel> AllUsers { get; private set; }
 
-    public void Init()
+    public async void Init()
     {
-        _saveFilePath = $"{Application.dataPath}/Leaderboard/JSON/PlayerData.json"; 
+        var leaderboardModel = await _serverApi.GetLeaderboardModel();
 
-        if (File.Exists(_saveFilePath))
-        {
-            var model = JsonUtility.FromJson<LeaderboardModel>(File.ReadAllText(_saveFilePath));
-
-            _maxAmount = model.MaxAmount;
-            AllUsers = model.model;
-            AllUsers = AllUsers.OrderByDescending(user => user.score).Take(_maxAmount).ToList();
-        }
-        else
-        {
-            AllUsers = new List<LeaderboardUserModel>();
-            var model = new LeaderboardModel {MaxAmount = DEFAULT_MAX_AMOUNT_LEADERBOARD, model = AllUsers};
-            File.WriteAllText(_saveFilePath, JsonUtility.ToJson(model));
-        }
-
+        _maxAmount = leaderboardModel.MaxAmount;
+        AllUsers = leaderboardModel.Users;
+        AllUsers = AllUsers.OrderByDescending(user => user.score).Take(_maxAmount).ToList();
         Initialized = true;
     }
 
-    public void AddUser(LeaderboardUserModel model)
+    public async void AddUser(LeaderboardUserModel model)
     {
         var existUser = AllUsers.FirstOrDefault(user => user.name == model.name);
 
@@ -46,7 +35,7 @@ public class LeaderboardSystem : ILeaderboardSystem
         
         AllUsers = AllUsers.OrderByDescending(user => user.score).Take(_maxAmount).ToList();
 
-        File.WriteAllText(_saveFilePath, JsonUtility.ToJson(new LeaderboardModel {model = AllUsers, MaxAmount = _maxAmount}));
+        await _serverApi.AddUserInLeaderboard(new LeaderboardModel {Users = AllUsers, MaxAmount = _maxAmount});
     }
 
     public bool IsNewRecord(in int score) => !AllUsers.Any() || AllUsers.Last().score < score;
