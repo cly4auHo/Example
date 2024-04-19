@@ -9,11 +9,11 @@ namespace Boot
 {
     public class GameManager : MonoBehaviour
     {
-        [Inject] IBackgroundSystem _backgroundSystem;
-        [Inject] ILeaderboardSystem _leaderboardSystem;
-        [Inject] IServerApi _serverApi;
-        [Inject] IExampleGenerator _exampleGenerator;
-        [Inject] Widget _widget;
+        [Inject] private IBackgroundSystem _backgroundSystem;
+        [Inject] private ILeaderboardSystem _leaderboardSystem;
+        [Inject] private IServerApi _serverApi;
+        [Inject] private IExampleGenerator _exampleGenerator;
+        [Inject] private Widget _widget;
 
         async void Start()
         {

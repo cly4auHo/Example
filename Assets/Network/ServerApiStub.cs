@@ -7,7 +7,7 @@ namespace Network
 {
     public class ServerApiStub : IServerApi
     {
-        const int DEFAULT_MAX_AMOUNT_LEADERBOARD = 10;
+        private const int DEFAULT_MAX_AMOUNT_LEADERBOARD = 10;
         
         public async Task<GameModel> GetGameModel()
         {

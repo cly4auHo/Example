@@ -9,23 +9,23 @@ using Zenject;
 public class Widget : MonoBehaviour
 {
     [Header("Main view")]
-    [SerializeField] Image _background;
-    [SerializeField] GameObject _newGameField;
-    [SerializeField] Button _newGame;
-    [SerializeField] Button _leaderBoard;
-    [SerializeField] Button _backGround;
+    [SerializeField] private Image _background;
+    [SerializeField] private GameObject _newGameField;
+    [SerializeField] private Button _newGame;
+    [SerializeField] private Button _leaderBoard;
+    [SerializeField] private Button _backGround;
     
     [Header("Prefabs")]
-    [SerializeField] Transform _container;
-    [SerializeField] BackgroundWidget _backgroundWidget;
-    [SerializeField] LeaderBoardWidget _leaderBoardWidget;
-    [SerializeField] GameFieldWidget _gameFieldWidget;
+    [SerializeField] private Transform _container;
+    [SerializeField] private BackgroundWidget _backgroundWidget;
+    [SerializeField] private LeaderBoardWidget _leaderBoardWidget;
+    [SerializeField] private GameFieldWidget _gameFieldWidget;
     
-    [Inject] IBackgroundSystem _backgroundSystem;
-    [Inject] ILeaderboardSystem _leaderboardSystem;
-    [Inject] IExampleGenerator _exampleGenerator;
+    [Inject] private IBackgroundSystem _backgroundSystem;
+    [Inject] private ILeaderboardSystem _leaderboardSystem;
+    [Inject] private IExampleGenerator _exampleGenerator;
     
-    GameModel _model;
+    private GameModel _model;
     
     public void Init(GameModel model)
     {
@@ -38,7 +38,7 @@ public class Widget : MonoBehaviour
         _backGround.onClick.AddListener(BackgroundClickHandler);
     }
 
-    void NewGameClickHandler()
+    private void NewGameClickHandler()
     {
         _newGameField.SetActive(false);
 
@@ -48,7 +48,7 @@ public class Widget : MonoBehaviour
         gameField.Init(_leaderboardSystem, _exampleGenerator, _model);
     }
 
-    void LeaderboardClickHandler()
+    private void LeaderboardClickHandler()
     {
         DeactivateMainWidget();
 
@@ -58,7 +58,7 @@ public class Widget : MonoBehaviour
         leaderboardWidget.Init(_leaderboardSystem);
     }
     
-    void BackgroundClickHandler()
+    private void BackgroundClickHandler()
     {
         DeactivateMainWidget();
 
@@ -68,30 +68,30 @@ public class Widget : MonoBehaviour
         backgroundWidget.Init(_backgroundSystem);
     }
 
-    void ActivateMainWidget() => _newGameField.SetActive(true);
+    private void ActivateMainWidget() => _newGameField.SetActive(true);
 
-    void DeactivateMainWidget() => _newGameField.SetActive(false);
+    private void DeactivateMainWidget() => _newGameField.SetActive(false);
 
-    void CloseGame(BaseWidget widget)
+    private void CloseGame(BaseWidget widget)
     {
         widget.Closed -= CloseGame;
         ActivateMainWidget();
     }
     
-    void CloseLeaderboard(BaseWidget widget)
+    private void CloseLeaderboard(BaseWidget widget)
     {
         widget.Closed -= CloseLeaderboard;
         ActivateMainWidget();
     }
     
-    void ChoseNewBackground(BaseWidget widget)
+    private void ChoseNewBackground(BaseWidget widget)
     {
         widget.Closed -= ChoseNewBackground;
         ActivateMainWidget();
         _background.sprite = _backgroundSystem.CurrentBackground;
     }
 
-    async void SetBackground()
+    private async void SetBackground()
     {
         await Awaiters.Until(() => _backgroundSystem.Initialized);
         
@@ -99,7 +99,7 @@ public class Widget : MonoBehaviour
             _background.sprite = _backgroundSystem.CurrentBackground;
     }
     
-    void OnDestroy()
+    private void OnDestroy()
     {
         _newGame.onClick.RemoveListener(NewGameClickHandler);
         _leaderBoard.onClick.RemoveListener(LeaderboardClickHandler);

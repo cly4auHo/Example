@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class GameFieldWidget : BaseWidget
 {
-    static readonly Dictionary<Operation, string> SIGNS = new()
+    private static readonly Dictionary<Operation, string> SIGNS = new()
     {
         {Operation.Addition, "+"},
         {Operation.Subtraction, "-"},
@@ -18,41 +18,41 @@ public class GameFieldWidget : BaseWidget
         {Operation.Division, "/"}
     };
     
-    [SerializeField] Button _pause;
-    [SerializeField] Button _help;
-    [SerializeField] GameOver _gameOver;
-    [SerializeField] TextMeshProUGUI _pauseSymbol;
-    [SerializeField] TextMeshProUGUI _example;
-    [SerializeField] TextMeshProUGUI _timer;
-    [SerializeField] TextMeshProUGUI _scoreText;
-    [SerializeField] Transform _gameOverContainer;
+    [SerializeField] private Button _pause;
+    [SerializeField] private Button _help;
+    [SerializeField] private GameOver _gameOver;
+    [SerializeField] private TextMeshProUGUI _pauseSymbol;
+    [SerializeField] private TextMeshProUGUI _example;
+    [SerializeField] private TextMeshProUGUI _timer;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Transform _gameOverContainer;
     
     [Header("Answers initialisation")]
-    [SerializeField] RectTransform _container;
-    [SerializeField] ScrollRect _scroll;
-    [SerializeField] Answer _answerPrefab;
-    [SerializeField] int _amountAnswersForScrolling;
-    [SerializeField] float _timeToHighlight;
+    [SerializeField] private RectTransform _container;
+    [SerializeField] private ScrollRect _scroll;
+    [SerializeField] private Answer _answerPrefab;
+    [SerializeField] private int _amountAnswersForScrolling;
+    [SerializeField] private float _timeToHighlight;
     
-    ILeaderboardSystem _leaderboardSystem;
-    IExampleGenerator _exampleGenerator;
-    GameModel _model;
+    private ILeaderboardSystem _leaderboardSystem;
+    private IExampleGenerator _exampleGenerator;
+    private GameModel _model;
 
-    GameOver _gameOverInstance;
-    Example _currentExample;
-    Answer[] _answers;
-    int _score;
-    int _additionalScore;
-    int _step;
-    int _min;
-    int _max;
-    int _streak;
-    bool _isEasy;
-    bool _boosterUsed;
-    bool _endGame;
-    bool _paused;
-    float _time;
-    float _additionalTime;
+    private GameOver _gameOverInstance;
+    private Example _currentExample;
+    private Answer[] _answers;
+    private int _score;
+    private int _additionalScore;
+    private int _step;
+    private int _min;
+    private int _max;
+    private int _streak;
+    private bool _isEasy;
+    private bool _boosterUsed;
+    private bool _endGame;
+    private bool _paused;
+    private float _time;
+    private float _additionalTime;
     
     public void Init(ILeaderboardSystem leaderboardSystem, IExampleGenerator exampleGenerator, GameModel model)
     {
@@ -84,7 +84,7 @@ public class GameFieldWidget : BaseWidget
         _help.onClick.AddListener(HelpClickHandler);
     }
 
-    void NextExample()
+    private void NextExample()
     {
         _currentExample = _exampleGenerator.Generate(_isEasy, _min, _max);
         _example.text = $"{_currentExample.First} {SIGNS[_currentExample.Operation]} {_currentExample.Second} = ?";
@@ -93,7 +93,7 @@ public class GameFieldWidget : BaseWidget
             _answers[i].SetValue(_currentExample.Answers[i]);
     }
     
-    async void ChoseAnswerHandler(int index)
+    private async void ChoseAnswerHandler(int index)
     {
         if (_paused)
             return;
@@ -133,7 +133,7 @@ public class GameFieldWidget : BaseWidget
         }
     }
     
-    void CheckDifficulty()
+    private void CheckDifficulty()
     {
         if (_step < _model.ChangeDifficulty)
             return;
@@ -157,7 +157,7 @@ public class GameFieldWidget : BaseWidget
         }
     }
 
-    void EndGame()
+    private void EndGame()
     {
         if (_endGame)
             return;
@@ -174,7 +174,7 @@ public class GameFieldWidget : BaseWidget
         _gameOverInstance.Cancel += CancelHandler;
     }
     
-    void PauseClickHandler()
+    private void PauseClickHandler()
     {
         if (_endGame)
             return;
@@ -193,7 +193,7 @@ public class GameFieldWidget : BaseWidget
         _paused = !_paused;
     }
 
-    void HelpClickHandler()
+    private void HelpClickHandler()
     {
         if (_paused)
             return;
@@ -216,7 +216,7 @@ public class GameFieldWidget : BaseWidget
             answer.Inactive();
     }
 
-    void SubmitHandler(string name)
+    private void SubmitHandler(string name)
     {
         Unsubscribe();
         
@@ -224,13 +224,13 @@ public class GameFieldWidget : BaseWidget
         Close();
     }
 
-    void CancelHandler()
+    private void CancelHandler()
     {
         Unsubscribe();
         Close();
     }
 
-    async void Timer()
+    private async void Timer()
     {
         while (_time > 0)
         {
@@ -245,7 +245,7 @@ public class GameFieldWidget : BaseWidget
         EndGame();
     }
     
-    void Unsubscribe()
+    private void Unsubscribe()
     {
         _gameOverInstance.Dispose();
         _gameOverInstance.Submit -= SubmitHandler;
@@ -258,7 +258,7 @@ public class GameFieldWidget : BaseWidget
         }
     }
 
-    void Close()
+    private void Close()
     {
         _pause.onClick.RemoveListener(PauseClickHandler);
         _help.onClick.RemoveListener(HelpClickHandler);

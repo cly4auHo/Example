@@ -37,7 +37,7 @@ public class GameOver : MonoBehaviour
         _back.onClick.RemoveListener(CancelClickHandler);
     }
 
-    void CancelClickHandler() => Cancel?.Invoke();
+    private void CancelClickHandler() => Cancel?.Invoke();
 
-    void SubmitClickHandler() => Submit?.Invoke(string.IsNullOrEmpty(_inputField.text) ? "User" : _inputField.text);
+    private void SubmitClickHandler() => Submit?.Invoke(string.IsNullOrEmpty(_inputField.text) ? "User" : _inputField.text);
 }

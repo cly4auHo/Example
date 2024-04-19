@@ -22,7 +22,7 @@ namespace Generator
             return divisors;
         }
 
-        static bool IsPrime(in int number)
+        public static bool IsPrime(in int number)
         {
             if (number <= 1)
                 return false;

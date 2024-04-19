@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class LeaderBoardWidget : BaseWidget
 {
-    [SerializeField] LeaderboardField _leaderboardFieldPrefab;
-    [SerializeField] RectTransform _container;
-    [SerializeField] Button _close;
-    [SerializeField] VerticalLayoutGroup _layoutGroup;
-    [SerializeField] float _spacing;
+    [SerializeField] private LeaderboardField _leaderboardFieldPrefab;
+    [SerializeField] private RectTransform _container;
+    [SerializeField] private Button _close;
+    [SerializeField] private VerticalLayoutGroup _layoutGroup;
+    [SerializeField] private float _spacing;
 
-    ILeaderboardSystem _leaderboardSystem;
+    private ILeaderboardSystem _leaderboardSystem;
     
     public async void Init(ILeaderboardSystem leaderboardSystem)
     {
@@ -29,7 +29,7 @@ public class LeaderBoardWidget : BaseWidget
         _close.onClick.AddListener(CloseClickHandler);
     }
 
-    void CloseClickHandler()
+    private void CloseClickHandler()
     {
         Closed?.Invoke(this);
         _close.onClick.RemoveListener(CloseClickHandler);

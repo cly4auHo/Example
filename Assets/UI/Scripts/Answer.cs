@@ -8,11 +8,11 @@ public class Answer : MonoBehaviour
 {
     public Action<int> Pressed;
     
-    [SerializeField] TextMeshProUGUI _text;
-    [SerializeField] Button _button;
-    [SerializeField] Image _image;
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private Button _button;
+    [SerializeField] private Image _image;
     
-    int _index;
+    private int _index;
     
     public void Init(in int index)
     {
@@ -40,5 +40,5 @@ public class Answer : MonoBehaviour
     public void HighLight(in float duration, bool isCorrect) 
         => _image.DOColor(isCorrect ? Color.green : Color.red, duration);
     
-    void ClickHandler() => Pressed?.Invoke(_index);
+    private void ClickHandler() => Pressed?.Invoke(_index);
 }

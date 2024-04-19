@@ -11,9 +11,9 @@ namespace Injection
 {
     public class GameInstaller : MonoInstaller
     {
-        [SerializeField] GameManager _gameManager;
-        [SerializeField] ContentManager _contentManager;
-        [SerializeField] Widget _widget;
+        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private ContentManager _contentManager;
+        [SerializeField] private Widget _widget;
 
         public override void InstallBindings()
         {

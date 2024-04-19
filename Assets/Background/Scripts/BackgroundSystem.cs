@@ -7,12 +7,12 @@ namespace Background
 {
     public class BackgroundSystem : IBackgroundSystem
     {
-        const string KEY = "background";
+        private const string KEY = "background";
 
-        [Inject] IContentManager _contentManager;
+        [Inject] private IContentManager _contentManager;
 
-        Sprite[] _all;
-        int _currentIndex = -1;
+        private Sprite[] _all;
+        private int _currentIndex = -1;
         
         public bool Initialized { get; private set; }
         public Sprite CurrentBackground { get; private set; }

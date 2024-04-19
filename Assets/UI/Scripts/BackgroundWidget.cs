@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class BackgroundWidget : BaseWidget
 {
-    [SerializeField] BackgroundContainer _backgroundContainerPrefab;
-    [SerializeField] RectTransform _container;
-    [SerializeField] HorizontalLayoutGroup _layoutGroup;
-    [SerializeField] float _spacing;
+    [SerializeField] private BackgroundContainer _backgroundContainerPrefab;
+    [SerializeField] private RectTransform _container;
+    [SerializeField] private HorizontalLayoutGroup _layoutGroup;
+    [SerializeField] private float _spacing;
     
-    IBackgroundSystem _backgroundSystem;
+    private IBackgroundSystem _backgroundSystem;
 
-    BackgroundContainer[] _backgroundContainers;
+    private BackgroundContainer[] _backgroundContainers;
     
     public async void Init(IBackgroundSystem backgroundSystem)
     {
@@ -34,7 +34,7 @@ public class BackgroundWidget : BaseWidget
         }
     }
 
-    void ChooseBackgroundClickHandler(int index)
+    private void ChooseBackgroundClickHandler(int index)
     {
         foreach (var background in _backgroundContainers)
             background.Pressed -= ChooseBackgroundClickHandler;
@@ -43,6 +43,6 @@ public class BackgroundWidget : BaseWidget
         
         Closed?.Invoke(this);
         
-        Destroy(gameObject); //lifecycle of widget must control UI system 
+        Destroy(gameObject); 
     }
 }

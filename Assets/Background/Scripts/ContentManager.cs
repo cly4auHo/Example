@@ -8,9 +8,9 @@ namespace Content
 {
     public class ContentManager : MonoBehaviour, IContentManager
     {
-        [SerializeField] AssetReference[] sprites;
+        [SerializeField] private AssetReference[] sprites;
 
-        AsyncOperationHandle<Sprite>[] _spriteHandles;
+        private AsyncOperationHandle<Sprite>[] _spriteHandles;
 
         public async Task<Sprite> GetSprite(int index)
         {

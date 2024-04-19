@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,13 +7,13 @@ namespace Generator
 {
     public class ExampleGenerator : IExampleGenerator
     {
-        const int MIN_ANSWERS_AMOUNT = 2;
-        const int MAX_ANSWERS_AMOUNT = 10;
+        private const int MIN_ANSWERS_AMOUNT = 2;
+        private const int MAX_ANSWERS_AMOUNT = 10;
         
-        static readonly Operation[] EASY = {Operation.Addition, Operation.Subtraction};
-        static readonly Operation[] HARD = {Operation.Addition, Operation.Subtraction, Operation.Multiplication, Operation.Division};
+        private static readonly Operation[] EASY = {Operation.Addition, Operation.Subtraction};
+        private static readonly Operation[] HARD = {Operation.Addition, Operation.Subtraction, Operation.Multiplication, Operation.Division};
 
-        int _amountOfAnswers;
+        private int _amountOfAnswers;
 
         public void Init(in int amountOfAnswers)
         {
@@ -35,7 +34,7 @@ namespace Generator
             };
         }
 
-        Example Addition(in int minValue, in int maxValue)
+        private Example Addition(in int minValue, in int maxValue)
         {
             var answer = Random.Range(2 + minValue, maxValue + 1); //min 1 + 1, if minValue 0
             var first = Random.Range(1, answer);
@@ -51,7 +50,7 @@ namespace Generator
             };
         }
 
-        Example Subtraction(in int minValue, in int maxValue)
+        private Example Subtraction(in int minValue, in int maxValue)
         {
             var first = Random.Range(2 + minValue, maxValue + 1);
             var answer = Random.Range(1, first);
@@ -67,7 +66,7 @@ namespace Generator
             };
         }
 
-        Example Multiplication(in int minValue, in int maxValue)
+        private Example Multiplication(in int minValue, in int maxValue)
         {
             var answer = Random.Range(1 + minValue, maxValue + 1);
             var divisors = MathUtil.GetDivisors(answer);
@@ -84,7 +83,7 @@ namespace Generator
             };
         }
 
-        Example Division(in int minValue, in int maxValue)
+        private Example Division(in int minValue, in int maxValue)
         {
             var first = Random.Range(1 + minValue, maxValue + 1);
             var divisors = MathUtil.GetDivisors(first);
@@ -101,7 +100,7 @@ namespace Generator
             };
         }
 
-        int[] GetAnswers(in int answer)
+        private int[] GetAnswers(in int answer)
         {
             var answers = new int[_amountOfAnswers];
             var random = Random.Range(0, answers.Length);
@@ -116,7 +115,7 @@ namespace Generator
             return answers;
         }
 
-        int RandomNear(in int value, int[] values)
+        private int RandomNear(in int value, int[] values)
         {
             var random = Random.Range(value - _amountOfAnswers, value + _amountOfAnswers + 1);
             return values.Contains(random) ? RandomNear(value, values) : random;

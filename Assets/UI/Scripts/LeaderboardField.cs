@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LeaderboardField : MonoBehaviour
 {
-    [SerializeField] RectTransform _transform;
-    [SerializeField] TextMeshProUGUI _userName;
-    [SerializeField] TextMeshProUGUI _score;
+    [SerializeField] private RectTransform _transform;
+    [SerializeField] private TextMeshProUGUI _userName;
+    [SerializeField] private TextMeshProUGUI _score;
 
     public float Height => _transform.sizeDelta.y;
     
