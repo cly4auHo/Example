@@ -1,7 +1,11 @@
-public enum WidgetName
+namespace UI
 {
-    Background,
-    Leaderboard,
-    Game,
-    End
+    public enum WidgetName
+    {
+        Menu,
+        Game,
+        Leaderboard,
+        Background,
+        End
+    }
 }

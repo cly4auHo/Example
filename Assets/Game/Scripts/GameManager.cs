@@ -1,30 +1,37 @@
-using Background;
-using Generator;
+using System;
 using Leaderboard;
 using Network;
-using UnityEngine;
+using UI;
 using Zenject;
 
-namespace Boot
+namespace GameManagment
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : IGameManager
     {
-        [Inject] private IBackgroundSystem _backgroundSystem;
+        public event Action RestartGame;
+        
+        [Inject] private IUIManager _uiManager;
         [Inject] private ILeaderboardSystem _leaderboardSystem;
-        [Inject] private IServerApi _serverApi;
-        [Inject] private IExampleGenerator _exampleGenerator;
-        [Inject] private Widget _widget;
 
-        async void Start()
+        private int _score;
+        
+        public void StartGame() => _uiManager.Present(WidgetName.Game);
+        public void OpenLeaderBoard() => _uiManager.Present(WidgetName.Leaderboard);
+        public void OpenBackground() => _uiManager.Present(WidgetName.Background);
+
+        public void EndGame(in int score)
         {
-            _backgroundSystem.Init();
-            _leaderboardSystem.Init();
-
-            var model = await _serverApi.GetGameModel();
-
-            _widget.Init(model);
-
-            _exampleGenerator.Init(model.AmountOfAnswers);
+            _score = score;
+            _uiManager.PresentWithData(WidgetName.End, _leaderboardSystem.IsNewRecord(score));
         }
+
+        public void Restart()
+        {
+            RestartGame?.Invoke();
+            _uiManager.Present(WidgetName.Menu);
+        }
+
+        public void Submit(string name)
+            => _leaderboardSystem.AddUser(new LeaderboardUserModel {name = name, score = _score});   
     }
 }

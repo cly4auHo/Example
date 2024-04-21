@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c98cf24d120d41318f95f7569ae85eb, type: 3}
+  m_Name: ScriptableObjectsInstaller
+  m_EditorClassIdentifier: 
+  _uiConfiguration: {fileID: 11400000, guid: 63320281da1d94605ba9a0f336a2edb2, type: 2}
+  _layersConfiguration: {fileID: 11400000, guid: 1d9428cd6576044b289b9c36e37ff66d, type: 2}

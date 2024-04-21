@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5840316601832161789}
   - component: {fileID: 6964879371656620817}
   - component: {fileID: 4284539778228726935}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: LeaderboardField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 2161288833707185044}
   - component: {fileID: 8180648347104995322}
   - component: {fileID: 5116539936025939121}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 5261839050564364373}
   - component: {fileID: 5387086938759138711}
   - component: {fileID: 4176482658596485106}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: UserName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

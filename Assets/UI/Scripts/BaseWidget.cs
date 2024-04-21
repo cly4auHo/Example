@@ -1,7 +1,22 @@
 using System;
+using GameManagment;
 using UnityEngine;
+using Zenject;
 
-public class BaseWidget : MonoBehaviour
+namespace UI
 {
-    public Action<BaseWidget> Closed;
+    public abstract class BaseWidget : MonoBehaviour
+    {
+        public Action<BaseWidget> Closed;
+
+        [Inject] protected IGameManager _gameManager;
+
+        public abstract void OnCreated();
+        public abstract void OnClosed();
+    }
+
+    public abstract class BaseWidgetWithData<T> : BaseWidget
+    {
+        public T Data { get; set; }
+    }
 }

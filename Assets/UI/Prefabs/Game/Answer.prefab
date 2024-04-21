@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6580179902411905550}
   - component: {fileID: 3933529345941567640}
   - component: {fileID: 8715667339182621658}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1081696294321641355}
   - component: {fileID: 6477133661411643052}
   - component: {fileID: 4261130937362984666}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Answer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

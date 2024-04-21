@@ -9,9 +9,9 @@ namespace Leaderboard
 {
     public class LeaderboardSystem : ILeaderboardSystem
     {
-        int _maxAmount;
+        private int _maxAmount;
 
-        [Inject] IServerApi _serverApi;
+        [Inject] private IServerApi _serverApi;
 
         public bool Initialized { get; private set; }
         public List<LeaderboardUserModel> AllUsers { get; private set; }

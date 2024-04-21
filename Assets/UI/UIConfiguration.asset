@@ -9,9 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa565e259d9b4b6e942632e2d7938d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fc056e70f7949ae96a61deb865ed6e1, type: 3}
   m_Name: UIConfiguration
   m_EditorClassIdentifier: 
-  Prefabs:
+  _widgets:
+  - Name: 0
+    Widget: {fileID: 1917656565595194984, guid: 63ed59c84f48a481f8b9ea18e05e3e46, type: 3}
   - Name: 1
-    Prefab: {fileID: 7770163506727100907, guid: bc03b346d656f4bc6a18b7bd2fb21493, type: 3}
+    Widget: {fileID: 882828844338004557, guid: 484f6f395455c4ca98f7096281b79b00, type: 3}
+  - Name: 2
+    Widget: {fileID: 1046234004702435341, guid: 809b09f56da7042b4ae682e7fe737eda, type: 3}
+  - Name: 3
+    Widget: {fileID: 8744958598449164855, guid: bc03b346d656f4bc6a18b7bd2fb21493, type: 3}
+  - Name: 4
+    Widget: {fileID: 2347696057947237227, guid: eab9f197a061f4691831b6ffcbc73ddf, type: 3}

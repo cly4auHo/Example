@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Content;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Background
     {
         private const string KEY = "background";
 
+        public event Action<Sprite> NewBackground; 
+        
         [Inject] private IContentManager _contentManager;
 
         private Sprite[] _all;
@@ -37,6 +40,8 @@ namespace Background
                 if (i != index)
                     _contentManager.Release(i);
             }
+            
+            NewBackground?.Invoke(CurrentBackground);
         }
 
         public async Task<Sprite[]> GetAll()

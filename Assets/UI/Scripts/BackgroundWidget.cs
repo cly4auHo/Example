@@ -1,48 +1,50 @@
 using Background;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class BackgroundWidget : BaseWidget
+namespace UI
 {
-    [SerializeField] private BackgroundContainer _backgroundContainerPrefab;
-    [SerializeField] private RectTransform _container;
-    [SerializeField] private HorizontalLayoutGroup _layoutGroup;
-    [SerializeField] private float _spacing;
-    
-    private IBackgroundSystem _backgroundSystem;
-
-    private BackgroundContainer[] _backgroundContainers;
-    
-    public async void Init(IBackgroundSystem backgroundSystem)
+    public class BackgroundWidget : BaseWidget
     {
-        _backgroundSystem = backgroundSystem;
+        [SerializeField] private BackgroundContainer _backgroundContainerPrefab;
+        [SerializeField] private RectTransform _container;
+        [SerializeField] private HorizontalLayoutGroup _layoutGroup;
+        [SerializeField] private float _spacing;
 
-        var allBackgrounds = await _backgroundSystem.GetAll();
-
-        _backgroundContainers = new BackgroundContainer[allBackgrounds.Length];
-        _layoutGroup.spacing = _spacing;
-        _container.sizeDelta = new Vector2((allBackgrounds.Length - 1) * (_spacing + _backgroundContainerPrefab.Width), _container.sizeDelta.y);
+        [Inject] private IBackgroundSystem _backgroundSystem;
         
-        for (int i = 0; i < allBackgrounds.Length; i++)
+        private BackgroundContainer[] _backgroundContainers;
+
+        public override async void OnCreated()
         {
-            var background = Instantiate(_backgroundContainerPrefab, _container);
+            var allBackgrounds = await _backgroundSystem.GetAll();
 
-            _backgroundContainers[i] = background;
-            
-            background.Init(allBackgrounds[i], i);
-            background.Pressed += ChooseBackgroundClickHandler;
+            _backgroundContainers = new BackgroundContainer[allBackgrounds.Length];
+            _layoutGroup.spacing = _spacing;
+            _container.sizeDelta = new Vector2((allBackgrounds.Length - 1) * (_spacing + _backgroundContainerPrefab.Width), _container.sizeDelta.y);
+
+            for (int i = 0; i < allBackgrounds.Length; i++)
+            {
+                var background = Instantiate(_backgroundContainerPrefab, _container);
+
+                _backgroundContainers[i] = background;
+
+                background.Init(allBackgrounds[i], i);
+                background.Pressed += ChooseBackgroundClickHandler;
+            }
         }
-    }
 
-    private void ChooseBackgroundClickHandler(int index)
-    {
-        foreach (var background in _backgroundContainers)
-            background.Pressed -= ChooseBackgroundClickHandler;
+        public override void OnClosed()
+        {
+            foreach (var background in _backgroundContainers)
+                background.Pressed -= ChooseBackgroundClickHandler;
+        }
 
-        _backgroundSystem.SetNewBackground(index);
-        
-        Closed?.Invoke(this);
-        
-        Destroy(gameObject); 
+        private void ChooseBackgroundClickHandler(int index)
+        {
+            _backgroundSystem.SetNewBackground(index);
+            Closed?.Invoke(this);
+        }
     }
 }

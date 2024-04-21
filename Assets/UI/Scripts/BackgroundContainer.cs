@@ -2,28 +2,31 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BackgroundContainer : MonoBehaviour
+namespace UI
 {
-    public Action<int> Pressed;
-
-    [SerializeField] RectTransform _rectTransform;
-    [SerializeField] Button _button;
-    [SerializeField] Image _image;
-    
-    int _index;
-
-    public float Width => _rectTransform.sizeDelta.x;
-    
-    public void Init(Sprite sprite, in int index)
+    public class BackgroundContainer : MonoBehaviour
     {
-        _image.sprite = sprite;
-        _index = index;
-        _button.onClick.AddListener(ClickHandler);
-    }
+        public Action<int> Pressed;
 
-    void ClickHandler()
-    {
-        _button.onClick.RemoveListener(ClickHandler);
-        Pressed?.Invoke(_index);
+        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private Button _button;
+        [SerializeField] private Image _image;
+
+        private int _index;
+
+        public float Width => _rectTransform.sizeDelta.x;
+
+        public void Init(Sprite sprite, in int index)
+        {
+            _image.sprite = sprite;
+            _index = index;
+            _button.onClick.AddListener(ClickHandler);
+        }
+
+        private void ClickHandler()
+        {
+            _button.onClick.RemoveListener(ClickHandler);
+            Pressed?.Invoke(_index);
+        }
     }
 }

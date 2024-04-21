@@ -1,43 +1,46 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOver : MonoBehaviour
+namespace UI
 {
-    public Action<string> Submit;
-    public Action Cancel;
-
-    [SerializeField] GameObject _newRecordContainer;
-    [SerializeField] Button _cancel;
-    [SerializeField] Button _submit;
-    [SerializeField] TMP_InputField _inputField;
-    [SerializeField] Button _back;
-    
-    public void Init(in bool isNewRecord)
+    public class GameOver : BaseWidgetWithData<bool>
     {
-        _newRecordContainer.SetActive(isNewRecord);
-        _back.gameObject.SetActive(!isNewRecord);
+        [SerializeField] private GameObject _newRecordContainer;
+        [SerializeField] private Button _cancel;
+        [SerializeField] private Button _submit;
+        [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private Button _back;
         
-        if (isNewRecord)
+        public override void OnCreated()
         {
+            _newRecordContainer.SetActive(Data);
+            _back.gameObject.SetActive(!Data);
+            
             _cancel.onClick.AddListener(CancelClickHandler);
             _submit.onClick.AddListener(SubmitClickHandler);
-        }
-        else
-        {
             _back.onClick.AddListener(CancelClickHandler);
         }
+
+        public override void OnClosed()
+        {
+            _cancel.onClick.RemoveListener(CancelClickHandler);
+            _submit.onClick.RemoveListener(SubmitClickHandler);
+            _back.onClick.RemoveListener(CancelClickHandler);
+        }
+
+        private void SubmitClickHandler()
+        {
+            _gameManager.Submit(string.IsNullOrEmpty(_inputField.text) ? "User" : _inputField.text);
+            Close();
+        }
+
+        private void CancelClickHandler() => Close();
+
+        private void Close()
+        {
+            _gameManager.Restart();
+            Closed?.Invoke(this);
+        }
     }
-
-    public void Dispose()
-    {
-        _cancel.onClick.RemoveListener(CancelClickHandler);
-        _submit.onClick.RemoveListener(SubmitClickHandler);
-        _back.onClick.RemoveListener(CancelClickHandler);
-    }
-
-    private void CancelClickHandler() => Cancel?.Invoke();
-
-    private void SubmitClickHandler() => Submit?.Invoke(string.IsNullOrEmpty(_inputField.text) ? "User" : _inputField.text);
 }

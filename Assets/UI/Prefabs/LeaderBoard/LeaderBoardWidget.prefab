@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8344517229663580959}
   - component: {fileID: 3114973198323629258}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00015566309}
+  m_AnchoredPosition: {x: 0, y: 0.00026529195}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3114973198323629258
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1279276825610044763}
   - component: {fileID: 2643271413177636213}
   - component: {fileID: 7892618205271124999}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 7661528619489775300}
   - component: {fileID: 2055673889095008310}
   - component: {fileID: 5625126121452886543}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7658723155337731465}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9997343
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 42581087607781443}
   - component: {fileID: 3301934324383795309}
   - component: {fileID: 3929130978212652477}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 6223308586459441663}
   - component: {fileID: 7911256583201857278}
   - component: {fileID: 6575259980192582875}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 7658723155337731465}
   - component: {fileID: 8890661341435227490}
   - component: {fileID: 172114639937467914}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5677475784594752037}
   - component: {fileID: 1046234004702435341}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: LeaderBoardWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5093348110725822438}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
