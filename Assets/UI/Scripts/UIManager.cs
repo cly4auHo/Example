@@ -21,8 +21,6 @@ namespace UI
                 var uiLayer = Instantiate(layer);
                 _containers.Add(uiLayer.Layer, uiLayer.Container);
             }
-
-            Present(WidgetName.Menu);
         }
 
         public void Present(WidgetName widgetName)

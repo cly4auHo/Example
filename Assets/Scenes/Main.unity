@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 260549410}
   - component: {fileID: 260549411}
-  - component: {fileID: 260549408}
   - component: {fileID: 260549412}
   m_Layer: 0
   m_Name: Managers
@@ -142,31 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &260549408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260549407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22428672b75034c7ab7f88611150614d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - m_AssetGUID: 38e04c3016eba47e0b470aaed6fb3969
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 242fc0e8982874e8cbe13bc1d59080fe
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 39949e42cdfe442fca73457c3e5b6897
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
 --- !u!4 &260549410
 Transform:
   m_ObjectHideFlags: 0
@@ -285,7 +259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bootManager: {fileID: 260549411}
-  _contentManager: {fileID: 260549408}
   _uiManager: {fileID: 260549412}
 --- !u!1 &519420028
 GameObject:

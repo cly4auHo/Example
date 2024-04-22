@@ -27,6 +27,8 @@ namespace Boot
             _gameInstaller.BindModel(model);
             _exampleGenerator.Init(model.AmountOfAnswers);
             _uiManager.Init();
+            
+            _uiManager.Present(WidgetName.Menu);
         }
     }
 }

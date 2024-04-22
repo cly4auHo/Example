@@ -14,14 +14,12 @@ namespace Injection
     public class GameInstaller : MonoInstaller
     {
         [SerializeField] private BootManager _bootManager;
-        [SerializeField] private ContentManager _contentManager;
         [SerializeField] private UIManager _uiManager;
 
         public override void InstallBindings()
         {
             Container.Bind<GameInstaller>().FromInstance(this);
             
-            Container.Bind<IContentManager>().FromInstance(_contentManager);
             Container.Bind<IUIManager>().FromInstance(_uiManager);
             Container.Bind<BootManager>().FromInstance(_bootManager);
             
@@ -37,6 +35,7 @@ namespace Injection
             Container.Bind<IBackgroundSystem>().To<BackgroundSystem>().AsSingle();
             Container.Bind<IExampleGenerator>().To<ExampleGenerator>().AsSingle();
             Container.Bind<IGameManager>().To<GameManager>().AsSingle();
+            Container.Bind<IContentManager>().To<ContentManager>().AsSingle();
         }
     }
 }

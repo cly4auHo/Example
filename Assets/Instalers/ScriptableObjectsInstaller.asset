@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiConfiguration: {fileID: 11400000, guid: 63320281da1d94605ba9a0f336a2edb2, type: 2}
   _layersConfiguration: {fileID: 11400000, guid: 1d9428cd6576044b289b9c36e37ff66d, type: 2}
+  _contentCollection: {fileID: 11400000, guid: 103ee63eae09b417da1459d62f9f2ab0, type: 2}

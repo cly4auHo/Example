@@ -6,16 +6,16 @@ using Zenject;
 
 namespace Content
 {
-    public class ContentManager : MonoBehaviour, IContentManager
+    public class ContentManager : IContentManager
     {
-        [SerializeField] private AssetReference[] sprites;
-
+        [Inject] private ContentCollection _content;
+        
         private AsyncOperationHandle<Sprite>[] _spriteHandles;
 
         public async Task<Sprite> GetSprite(int index)
         {
-            _spriteHandles ??= new AsyncOperationHandle<Sprite>[sprites.Length];
-            var handle = sprites[index].LoadAssetAsync<Sprite>();
+            _spriteHandles ??= new AsyncOperationHandle<Sprite>[_content.Sprites.Length];
+            var handle = _content.Sprites[index].LoadAssetAsync<Sprite>();
 
             await handle.Task;
 
@@ -26,15 +26,15 @@ namespace Content
 
         public async Task<Sprite[]> GetAllSprite(int indexException = -1)
         {
-            var result = new Sprite[sprites.Length];
-            _spriteHandles ??= new AsyncOperationHandle<Sprite>[sprites.Length];
+            var result = new Sprite[_content.Sprites.Length];
+            _spriteHandles ??= new AsyncOperationHandle<Sprite>[_content.Sprites.Length];
 
-            for (int i = 0; i < sprites.Length; i++)
+            for (int i = 0; i < result.Length; i++)
             {
                 if (i == indexException)
                     continue;
 
-                var handle = sprites[i].LoadAssetAsync<Sprite>();
+                var handle = _content.Sprites[i].LoadAssetAsync<Sprite>();
                 await handle.Task;
 
                 _spriteHandles[i] = handle;
