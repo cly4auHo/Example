@@ -1,4 +1,5 @@
 using Background;
+using GameManagment;
 using Generator;
 using Injection;
 using Leaderboard;
@@ -16,19 +17,22 @@ namespace Boot
         [Inject] private IServerApi _serverApi;
         [Inject] private IExampleGenerator _exampleGenerator;
         [Inject] private IUIManager _uiManager;
+        [Inject] private IGameManager _gameManager;
         [Inject] private GameInstaller _gameInstaller;
+        [Inject] private SplashScreen _splashScreen;
         
         private async void Start()
         {
             var model = await _serverApi.GetGameModel();
-         
+            
             _backgroundSystem.Init();
             _leaderboardSystem.Init();
             _gameInstaller.BindModel(model);
             _exampleGenerator.Init(model.AmountOfAnswers);
             _uiManager.Init();
+            _splashScreen.Init();
             
-            _uiManager.Present(WidgetName.Menu);
+            _gameManager.Restart();
         }
     }
 }

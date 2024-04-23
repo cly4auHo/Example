@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class Answer : MonoBehaviour
+    public class AnswerView : MonoBehaviour
     {
         public Action<int> Pressed;
 

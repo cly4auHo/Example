@@ -7,6 +7,7 @@ using Leaderboard;
 using Network;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -33,7 +34,7 @@ namespace UI
         [Header("Answers initialisation")] 
         [SerializeField] private RectTransform _container;
         [SerializeField] private ScrollRect _scroll;
-        [SerializeField] private Answer _answerPrefab;
+        [FormerlySerializedAs("_answerPrefab")] [SerializeField] private AnswerView _answerViewPrefab;
         [SerializeField] private int _amountAnswersForScrolling;
         [SerializeField] private float _timeToHighlight;
         
@@ -42,7 +43,7 @@ namespace UI
         [Inject] private GameModel _model;
         
         private Example _currentExample;
-        private Answer[] _answers;
+        private AnswerView[] _answers;
         private int _score;
         private int _additionalScore;
         private int _step;
@@ -67,12 +68,12 @@ namespace UI
             _additionalScore = _model.ScoreEasy;
             _additionalTime = _model.AdditionalTimeEasy;
             _scroll.horizontal = _model.AmountOfAnswers > _amountAnswersForScrolling;
-            _answers = new Answer[_model.AmountOfAnswers];
+            _answers = new AnswerView[_model.AmountOfAnswers];
             _timer.text = $"{_time}";
 
             for (int i = 0; i < _model.AmountOfAnswers; i++)
             {
-                _answers[i] = Instantiate(_answerPrefab, _container);
+                _answers[i] = Instantiate(_answerViewPrefab, _container);
                 _answers[i].Init(i);
                 _answers[i].Pressed += ChoseAnswerHandler;
             }
@@ -226,7 +227,7 @@ namespace UI
             _boosterUsed = true;
             _help.gameObject.SetActive(false);
 
-            var incorrect = new List<Answer>();
+            var incorrect = new List<AnswerView>();
 
             for (int i = 0; i < _answers.Length; i++)
             {

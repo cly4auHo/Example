@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 6477133661411643052}
   - component: {fileID: 4261130937362984666}
   m_Layer: 7
-  m_Name: Answer
+  m_Name: AnswerView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,3 +1,4 @@
+using Content;
 using UI;
 using UnityEngine;
 using Zenject;

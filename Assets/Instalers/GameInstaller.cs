@@ -15,18 +15,23 @@ namespace Injection
     {
         [SerializeField] private BootManager _bootManager;
         [SerializeField] private UIManager _uiManager;
-
+        [SerializeField] private SplashScreen _splashScreen;
+        
         public override void InstallBindings()
         {
-            Container.Bind<GameInstaller>().FromInstance(this);
-            
-            Container.Bind<IUIManager>().FromInstance(_uiManager);
-            Container.Bind<BootManager>().FromInstance(_bootManager);
-            
             BindSystems();
+            BindOnScene();
         }
         
         public void BindModel(GameModel model) => Container.Bind<GameModel>().FromInstance(model);
+
+        private void BindOnScene()
+        {
+            Container.Bind<GameInstaller>().FromInstance(this);
+            Container.Bind<BootManager>().FromInstance(_bootManager);
+            Container.Bind<SplashScreen>().FromInstance(_splashScreen);
+            Container.Bind<IUIManager>().FromInstance(_uiManager);
+        }
         
         private void BindSystems()
         {

@@ -1817,7 +1817,7 @@ GameObject:
   - component: {fileID: 6078706906348111958}
   - component: {fileID: 2347696057947237227}
   m_Layer: 8
-  m_Name: GameOver
+  m_Name: GameOverView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

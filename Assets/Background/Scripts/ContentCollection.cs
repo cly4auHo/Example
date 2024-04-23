@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[CreateAssetMenu(menuName = "ContentConfig")]
-public class ContentCollection : ScriptableObject
+namespace Content
 {
-    [field: SerializeField] public AssetReference[] Sprites { get; private set; }
+    [CreateAssetMenu(menuName = "ContentConfig")]
+    public class ContentCollection : ScriptableObject
+    {
+        [field: SerializeField] public AssetReference[] Sprites { get; private set; }
+    }
 }
