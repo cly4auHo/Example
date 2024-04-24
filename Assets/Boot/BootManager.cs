@@ -18,8 +18,7 @@ namespace Boot
         [Inject] private IExampleGenerator _exampleGenerator;
         [Inject] private IUIManager _uiManager;
         [Inject] private IGameManager _gameManager;
-        [Inject] private GameInstaller _gameInstaller;
-        [Inject] private SplashScreen _splashScreen;
+        [Inject] private IGameInstaller _gameInstaller;
         
         private async void Start()
         {
@@ -30,7 +29,6 @@ namespace Boot
             _gameInstaller.BindModel(model);
             _exampleGenerator.Init(model.AmountOfAnswers);
             _uiManager.Init();
-            _splashScreen.Init();
             
             _gameManager.Restart();
         }

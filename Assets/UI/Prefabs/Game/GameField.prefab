@@ -1865,15 +1865,13 @@ MonoBehaviour:
   _background: {fileID: 758683119725505989}
   _pause: {fileID: 4065813160017156937}
   _help: {fileID: 528310732241341511}
-  _gameOver: {fileID: 2347696057947237227, guid: eab9f197a061f4691831b6ffcbc73ddf, type: 3}
   _pauseSymbol: {fileID: 6800357502535578079}
   _example: {fileID: 3532225771802208955}
   _timer: {fileID: 2797404130877562592}
   _scoreText: {fileID: 7619426572641727049}
-  _gameOverContainer: {fileID: 8237724175380472704}
   _container: {fileID: 6285160810630045288}
   _scroll: {fileID: 715461087408797581}
-  _answerPrefab: {fileID: 4261130937362984666, guid: b2ef259c41f264b72a37f4dbf472af1a, type: 3}
+  _answerViewPrefab: {fileID: 4261130937362984666, guid: b2ef259c41f264b72a37f4dbf472af1a, type: 3}
   _amountAnswersForScrolling: 4
   _timeToHighlight: 1
 --- !u!1 &8857755515267940362

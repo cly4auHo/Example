@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Background;
 using Generator;
-using Leaderboard;
 using Network;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -34,7 +32,7 @@ namespace UI
         [Header("Answers initialisation")] 
         [SerializeField] private RectTransform _container;
         [SerializeField] private ScrollRect _scroll;
-        [FormerlySerializedAs("_answerPrefab")] [SerializeField] private AnswerView _answerViewPrefab;
+        [SerializeField] private AnswerView _answerViewPrefab;
         [SerializeField] private int _amountAnswersForScrolling;
         [SerializeField] private float _timeToHighlight;
         
@@ -44,6 +42,7 @@ namespace UI
         
         private Example _currentExample;
         private AnswerView[] _answers;
+        private List<AnswerView> _inactiveAnswers;
         private int _score;
         private int _additionalScore;
         private int _step;
@@ -70,7 +69,8 @@ namespace UI
             _scroll.horizontal = _model.AmountOfAnswers > _amountAnswersForScrolling;
             _answers = new AnswerView[_model.AmountOfAnswers];
             _timer.text = $"{_time}";
-
+            _inactiveAnswers = new List<AnswerView>();
+            
             for (int i = 0; i < _model.AmountOfAnswers; i++)
             {
                 _answers[i] = Instantiate(_answerViewPrefab, _container);
@@ -128,6 +128,8 @@ namespace UI
             if (_paused)
                 return;
 
+            _inactiveAnswers.Clear();
+            
             foreach (var answer in _answers)
                 answer.SetUnInteractable();
 
@@ -208,11 +210,22 @@ namespace UI
             {
                 Time.timeScale = 1;
                 _pauseSymbol.text = "||";
+                _example.gameObject.SetActive(true);
+                
+                foreach (var answer in _answers)
+                {
+                    if (!_inactiveAnswers.Contains(answer))
+                        answer.Active();
+                }
             }
             else
             {
                 Time.timeScale = 0;
                 _pauseSymbol.text = "▶";
+                _example.gameObject.SetActive(false);
+                
+                foreach (var answer in _answers)
+                    answer.Inactive();
             }
 
             _paused = !_paused;
@@ -226,18 +239,16 @@ namespace UI
             _streak = 0;
             _boosterUsed = true;
             _help.gameObject.SetActive(false);
-
-            var incorrect = new List<AnswerView>();
-
+            
             for (int i = 0; i < _answers.Length; i++)
             {
                 if (_currentExample.Answer != _currentExample.Answers[i])
-                    incorrect.Add(_answers[i]);
+                    _inactiveAnswers.Add(_answers[i]);
             }
 
-            incorrect = incorrect.OrderBy(_ => Guid.NewGuid()).Take(_model.AmountOfAnswers / 2).ToList();
+            _inactiveAnswers = _inactiveAnswers.OrderBy(_ => Guid.NewGuid()).Take(_model.AmountOfAnswers / 2).ToList();
 
-            foreach (var answer in incorrect)
+            foreach (var answer in _inactiveAnswers)
                 answer.Inactive();
         }
         

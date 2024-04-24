@@ -11,7 +11,7 @@ using Zenject;
 
 namespace Injection
 {
-    public class GameInstaller : MonoInstaller
+    public class GameInstaller : MonoInstaller, IGameInstaller
     {
         [SerializeField] private BootManager _bootManager;
         [SerializeField] private UIManager _uiManager;
@@ -27,9 +27,9 @@ namespace Injection
 
         private void BindOnScene()
         {
-            Container.Bind<GameInstaller>().FromInstance(this);
+            Container.Bind<IGameInstaller>().FromInstance(this);
             Container.Bind<BootManager>().FromInstance(_bootManager);
-            Container.Bind<SplashScreen>().FromInstance(_splashScreen);
+            Container.Bind().FromInstance(_splashScreen);
             Container.Bind<IUIManager>().FromInstance(_uiManager);
         }
         

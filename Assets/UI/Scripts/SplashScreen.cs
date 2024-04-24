@@ -6,7 +6,7 @@ public class SplashScreen : MonoBehaviour
 {
     [Inject] private IGameManager _gameManager;
     
-    public void Init()
+    public void Start()
     {
         _gameManager.RestartGame += StartGame;
     }
